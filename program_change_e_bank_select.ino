@@ -3,6 +3,8 @@
 */
 byte program = 0;
 byte msb = 0; //CC MSB Bank Select
+#define cc 32 // 32 or 0
+
 
 #define prox 2 //digital pin arduino(preset +)
 #define ante 3 //digital pin arduino(preset -)
@@ -25,10 +27,10 @@ void loop() {
     program--; program_change(0xc0, program); delay(200);
   }
   if (digitalRead(prox_bank ) == LOW && msb < 127) {
-    msb++; control_change(0xb0, 0, msb); delay(200);
+    msb++; control_change(0xb0, cc, msb); delay(200);
   }
   if (digitalRead(ante_bank ) == LOW && msb > 0) {
-    msb--; control_change(0xb0, 0, msb); delay(200);
+    msb--; control_change(0xb0, cc, msb); delay(200);
   }
 }
 void program_change(byte Status, byte Data) {
